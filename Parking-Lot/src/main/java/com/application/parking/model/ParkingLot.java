@@ -2,8 +2,12 @@ package com.application.parking.model;
 
 import com.application.parking.model.enums.ParkingLotStatus;
 import com.application.parking.model.enums.VehicleType;
-import com.application.parking.service.strategy.BillGenerationStrategy;
-import com.application.parking.service.strategy.ParkingSlotAssignmentStrategy;
+import com.application.parking.service.strategy.bill.BillGenerationStrategy;
+import com.application.parking.service.strategy.bill.BillGenerationStrategyFactory;
+import com.application.parking.service.strategy.bill.BillGenerationType;
+import com.application.parking.service.strategy.parkingslot.ParkingSlotAssignmentStrategy;
+import com.application.parking.service.strategy.parkingslot.ParkingSlotAssignmentStrategyFactory;
+import com.application.parking.service.strategy.parkingslot.ParkingSlotAssignmentStrategyType;
 
 import java.util.List;
 
@@ -20,31 +24,32 @@ public class ParkingLot extends BaseModel{
     public ParkingLot(){
 
     }
-    public ParkingLot(String name, String address, List<ParkingFloor> parkingFloors, List<VehicleType> vehicleTypes, ParkingLotStatus status, int capacity, ParkingSlotAssignmentStrategy slotAssignmentStrategy, BillGenerationStrategy billGenerationStrategy) {
+
+    public ParkingLot(String name, String address, List<ParkingFloor> parkingFloors, List<VehicleType> vehicleTypes, ParkingLotStatus status, int capacity, ParkingSlotAssignmentStrategyType slotAssignmentStrategyType, BillGenerationType billGenerationStrategyType) {
         this.name = name;
         this.address = address;
         this.parkingFloors = parkingFloors;
         this.vehicleTypes = vehicleTypes;
         this.status = status;
         this.capacity = capacity;
-        this.slotAssignmentStrategy = slotAssignmentStrategy;
-        this.billGenerationStrategy = billGenerationStrategy;
+        this.slotAssignmentStrategy = ParkingSlotAssignmentStrategyFactory.getParkingSlotAssignmentStrategy(slotAssignmentStrategyType);
+        this.billGenerationStrategy = BillGenerationStrategyFactory.getBillGenerationStrategy(billGenerationStrategyType);
     }
 
     public ParkingSlotAssignmentStrategy getSlotAssignmentStrategy() {
         return slotAssignmentStrategy;
     }
 
-    public void setSlotAssignmentStrategy(ParkingSlotAssignmentStrategy slotAssignmentStrategy) {
-        this.slotAssignmentStrategy = slotAssignmentStrategy;
+    public void setSlotAssignmentStrategy(ParkingSlotAssignmentStrategyType slotAssignmentStrategyType) {
+        this.slotAssignmentStrategy = ParkingSlotAssignmentStrategyFactory.getParkingSlotAssignmentStrategy(slotAssignmentStrategyType);
     }
 
     public BillGenerationStrategy getBillGenerationStrategy() {
         return billGenerationStrategy;
     }
 
-    public void setBillGenerationStrategy(BillGenerationStrategy billGenerationStrategy) {
-        this.billGenerationStrategy = billGenerationStrategy;
+    public void setBillGenerationStrategy(BillGenerationType billGenerationStrategyType) {
+        this.billGenerationStrategy = BillGenerationStrategyFactory.getBillGenerationStrategy(billGenerationStrategyType);
     }
 
     public String getName() {

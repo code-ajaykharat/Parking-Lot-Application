@@ -1,5 +1,7 @@
 package com.application.parking.model;
 
+import com.application.parking.model.enums.TokenStatus;
+
 import java.time.LocalDateTime;
 
 public class Token extends BaseModel{
@@ -7,13 +9,23 @@ public class Token extends BaseModel{
     private Vehicle vehicle;
     private Gate entryGate;
     private LocalDateTime entryTime;
+    private TokenStatus status;
 
     public Token(){}
-    public Token(ParkingSlot assignedSlot, Vehicle vehicle, Gate entryGate, LocalDateTime entryTime) {
+    public Token(ParkingSlot assignedSlot, Vehicle vehicle, Gate entryGate, LocalDateTime entryTime, TokenStatus status) {
         this.assignedSlot = assignedSlot;
         this.vehicle = vehicle;
         this.entryGate = entryGate;
         this.entryTime = entryTime;
+        this.status = status;
+    }
+
+    public TokenStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TokenStatus status) {
+        this.status = status;
     }
 
     public ParkingSlot getAssignedSlot() {
