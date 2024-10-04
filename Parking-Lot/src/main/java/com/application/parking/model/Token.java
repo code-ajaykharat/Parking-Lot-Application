@@ -4,20 +4,30 @@ import com.application.parking.model.enums.TokenStatus;
 
 import java.time.LocalDateTime;
 
-public class Token extends BaseModel{
+public class Token extends BaseModel {
     private ParkingSlot assignedSlot;
     private Vehicle vehicle;
-    private Gate entryGate;
+    private String floorNumber;
     private LocalDateTime entryTime;
     private TokenStatus status;
 
-    public Token(){}
-    public Token(ParkingSlot assignedSlot, Vehicle vehicle, Gate entryGate, LocalDateTime entryTime, TokenStatus status) {
+    public Token() {
+    }
+
+    public Token(ParkingSlot assignedSlot, Vehicle vehicle, String floorNumber, LocalDateTime entryTime, TokenStatus status) {
         this.assignedSlot = assignedSlot;
         this.vehicle = vehicle;
-        this.entryGate = entryGate;
+        this.floorNumber = floorNumber;
         this.entryTime = entryTime;
         this.status = status;
+    }
+
+    public String getFloorNumber() {
+        return floorNumber;
+    }
+
+    public void setFloorNumber(String floorNumber) {
+        this.floorNumber = floorNumber;
     }
 
     public TokenStatus getStatus() {
@@ -42,14 +52,6 @@ public class Token extends BaseModel{
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
-    }
-
-    public Gate getEntryGate() {
-        return entryGate;
-    }
-
-    public void setEntryGate(Gate entryGate) {
-        this.entryGate = entryGate;
     }
 
     public LocalDateTime getEntryTime() {

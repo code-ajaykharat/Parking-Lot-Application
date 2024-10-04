@@ -17,9 +17,11 @@ public class ParkingSlotRepository {
 
     public ParkingSlot save(ParkingSlot parkingSlot) {
         if(parkingSlot!=null){
-            parkingSlot.setId(++id);
+            if(!parkingSlotDb.containsKey(parkingSlot.getId())){
+                parkingSlot.setId(++id);
+            }
             parkingSlotDb.put(parkingSlot.getId(), parkingSlot);
-            System.out.println("Parking slot saved successfully!");
+            //System.out.println("Parking slot saved successfully!");
             return parkingSlot;
         }
         throw new ParkingSlotNotFoundException("Parking slot not found!");

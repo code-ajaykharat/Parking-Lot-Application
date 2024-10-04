@@ -17,9 +17,11 @@ public class TokenRepository {
 
     public Token save(Token token) {
         if(token!=null){
-            token.setId(++id);
+            if(!tokenDb.containsKey(token.getId())){
+                token.setId(++id);
+            }
             tokenDb.put(token.getId(), token);
-            System.out.println("Token saved successfully!");
+            //System.out.println("Token saved successfully!");
             return token;
         }
         throw new TokenNotFoundException("Token not found!");

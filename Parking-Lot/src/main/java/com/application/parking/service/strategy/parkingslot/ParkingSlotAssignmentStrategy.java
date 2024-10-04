@@ -1,9 +1,11 @@
 package com.application.parking.service.strategy.parkingslot;
 
-import com.application.parking.model.ParkingLot;
+import com.application.parking.model.ParkingFloor;
 import com.application.parking.model.ParkingSlot;
 import com.application.parking.model.Vehicle;
 
+import java.util.Optional;
+
 public interface ParkingSlotAssignmentStrategy {
-    ParkingSlot assign(ParkingLot parkingLot, Vehicle vehicle);
+    Optional<ParkingSlot> assign(ParkingFloor parkingFloor, Vehicle vehicle);
 }

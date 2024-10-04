@@ -8,7 +8,6 @@ import java.util.List;
 public class ParkingFloor extends BaseModel{
     private String number;
     private List<ParkingSlot> parkingSlots;
-    private List<VehicleType> vehicleTypes;
     private ParkingFloorStatus status;
     private Gate entryGate;
     private Gate exitGate;
@@ -16,21 +15,12 @@ public class ParkingFloor extends BaseModel{
     public ParkingFloor() {
     }
 
-    public ParkingFloor(String number, List<ParkingSlot> parkingSlots, List<VehicleType> vehicleTypes, ParkingFloorStatus status, Gate entryGate, Gate exitGate) {
+    public ParkingFloor(String number, List<ParkingSlot> parkingSlots, ParkingFloorStatus status, Gate entryGate, Gate exitGate) {
         this.number = number;
         this.parkingSlots = parkingSlots;
-        this.vehicleTypes = vehicleTypes;
         this.status = status;
         this.entryGate = entryGate;
         this.exitGate = exitGate;
-    }
-
-    public List<VehicleType> getVehicleTypes() {
-        return vehicleTypes;
-    }
-
-    public void setVehicleTypes(List<VehicleType> vehicleTypes) {
-        this.vehicleTypes = vehicleTypes;
     }
 
     public String getNumber() {

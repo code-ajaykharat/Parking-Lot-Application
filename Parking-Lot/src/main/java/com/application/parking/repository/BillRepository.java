@@ -17,9 +17,11 @@ public class BillRepository {
 
     public Bill save(Bill bill) {
         if(bill != null) {
-            bill.setId(++id);
-            this.billsDb.put(bill.getId(), bill);
-            System.out.println("Bill saved successfully!");
+            if(!billsDb.containsKey(bill.getId())) {
+                bill.setId(++id);
+            }
+            billsDb.put(bill.getId(), bill);
+            //System.out.println("Bill saved successfully!");
             return bill;
         }
         throw new BillNotFoundException("Bill not found");

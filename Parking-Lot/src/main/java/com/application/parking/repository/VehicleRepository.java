@@ -5,6 +5,7 @@ import com.application.parking.model.Vehicle;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class VehicleRepository {
     private Map<Integer, Vehicle> vehicleDb;
@@ -17,9 +18,11 @@ public class VehicleRepository {
 
     public Vehicle save(Vehicle vehicle) {
         if(vehicle!=null) {
-            vehicle.setId(++id);
+            if(!vehicleDb.containsKey(vehicle.getId())) {
+                vehicle.setId(++id);
+            }
             vehicleDb.put(vehicle.getId(), vehicle);
-            System.out.println("Vehicle saved successfully!");
+            //System.out.println("Vehicle saved successfully!");
             return vehicle;
         }
         throw new VehicleNotFoundException("Vehicle not found!");
@@ -30,5 +33,14 @@ public class VehicleRepository {
             return vehicleDb.get(id);
         }
         throw new VehicleNotFoundException("Vehicle not found with id "+id);
+    }
+
+    public Optional<Vehicle> findByNumber(String number) {
+        for(Vehicle vehicle : vehicleDb.values()) {
+            if(vehicle.getNumber().equals(number)) {
+                return Optional.ofNullable(vehicle);
+            }
+        }
+        return Optional.empty();
     }
 }

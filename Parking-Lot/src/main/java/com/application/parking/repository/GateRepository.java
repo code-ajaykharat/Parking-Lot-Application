@@ -17,9 +17,11 @@ public class GateRepository {
 
     public Gate save(Gate gate) {
         if (gate != null) {
-            gate.setId(++id);
+            if(!gateDb.containsKey(gate.getId())) {
+                gate.setId(++id);
+            }
             this.gateDb.put(gate.getId(), gate);
-            System.out.println("Gate saved successfully!");
+            //System.out.println("Gate saved successfully!");
             return gate;
         }
         throw new GateNotFoundException("Gate not found");
