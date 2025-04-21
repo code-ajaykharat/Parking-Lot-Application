@@ -27,7 +27,7 @@ public class TokenRepository {
         throw new TokenNotFoundException("Token not found!");
     }
 
-    public Token getById(int id) {
+    public Token findById(int id) {
         if(tokenDb.containsKey(id)){
             return tokenDb.get(id);
         }

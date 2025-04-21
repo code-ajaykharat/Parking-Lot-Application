@@ -1,8 +1,7 @@
 package com.application.parking.service.strategy.bill;
 
-import com.application.parking.model.Bill;
-import com.application.parking.model.Token;
+import com.application.parking.model.enums.VehicleType;
 
 public interface BillGenerationStrategy {
-    Bill generate(Token token);
+    double generatePrice(int hours, VehicleType vehicleType);
 }
