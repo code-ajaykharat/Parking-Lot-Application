@@ -91,6 +91,7 @@ public class TokenService {
             System.out.println(border);
             System.out.println(title);
             System.out.println(border);
+            System.out.printf("| %-15s: %-20s |\n", "Token ID", tokenResponse.getToken().getId());
             System.out.printf("| %-15s: %-20s |\n", "Name", tokenResponse.getToken().getVehicle().getOwnerName());
             System.out.printf("| %-15s: %-20s |\n", "Vehicle No", tokenResponse.getToken().getVehicle().getNumber());
             System.out.printf("| %-15s: %-20s |\n", "Time", tokenResponse.getToken().getEntryTime());

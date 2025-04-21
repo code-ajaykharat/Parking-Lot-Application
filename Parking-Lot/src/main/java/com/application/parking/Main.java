@@ -68,10 +68,11 @@ public class Main {
                     String userName = sc.next();
                     System.out.println("Please enter vehicle number: ");
                     String vehicleNumber = sc.next();
-                    System.out.println("Please enter vehicle type: ");
-                    VehicleType vehicleType = VehicleType.valueOf(sc.next());
+                    System.out.println("Please select the vehicle type: ");
+                    System.out.println("1. CAR, 2. BIKE, 3. TRUCK");
+                    int vehicleTypeOption = sc.nextInt();
                     tokenRequest.setVehicleNumber(vehicleNumber);
-                    tokenRequest.setVehicleType(vehicleType);
+                    tokenRequest.setVehicleType(VehicleType.values()[vehicleTypeOption - 1]);
                     tokenRequest.setFloorNumber(floorNumber);
                     tokenRequest.setUserName(userName);
                     TokenResponse tokenResponse = tokenController.generateToken(tokenRequest);
@@ -89,9 +90,10 @@ public class Main {
                     BillResponse billResponse = billController.generateBill(billRequest);
                     if(billResponse.getMessage() != null) {
                         System.out.println(billResponse.getMessage());
-                    } else {
                         System.out.println("Bill amount: " + billResponse.getAmount());
                         System.out.println("Please pay the bill to exit the parking lot.");
+                    } else {
+                        System.out.println("Error generating bill: " + billResponse.getMessage());
                     }
                     break;
                 case 3:
