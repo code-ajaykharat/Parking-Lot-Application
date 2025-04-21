@@ -1,14 +1,20 @@
 package com.application.parking;
 
+import com.application.parking.controller.BillController;
 import com.application.parking.controller.InitController;
 import com.application.parking.controller.TokenController;
+import com.application.parking.dto.request.BillRequest;
 import com.application.parking.dto.request.TokenRequest;
+import com.application.parking.dto.response.BillResponse;
 import com.application.parking.dto.response.TokenResponse;
 import com.application.parking.model.enums.VehicleType;
 import com.application.parking.repository.*;
+import com.application.parking.service.BillService;
 import com.application.parking.service.InitService;
 import com.application.parking.service.TokenService;
+import com.application.parking.service.strategy.bill.BillGenerationStrategy;
 import com.application.parking.service.strategy.bill.BillGenerationType;
+import com.application.parking.service.strategy.bill.SimpleBillGenerationStrategy;
 import com.application.parking.service.strategy.parkingslot.ParkingSlotAssignmentStrategyType;
 
 import java.util.Scanner;
@@ -40,6 +46,14 @@ public class Main {
                 parkingFloorRepository,
                 parkingSlotRepository
         );
+
+        BillGenerationStrategy billGenerationStrategy = new SimpleBillGenerationStrategy();
+        BillService billService = new BillService(
+                billGenerationStrategy,
+                tokenRepository,
+                billRepository
+        );
+
         while(true) {
             System.out.println("Select Option: \n 1. Enter to Parking Lot \n 2. Exit from Parking Lot \n 3. Display Parking Lot \n 4. Exit");
             int option = sc.nextInt();
@@ -64,7 +78,21 @@ public class Main {
                     tokenController.printToken(tokenResponse);
                     break;
                 case 2:
-                    //bill generation logic
+                    BillController billController = new BillController(billService);
+                    BillRequest billRequest = new BillRequest();
+                    System.out.println("Please enter token id: ");
+                    int tokenId = sc.nextInt();
+                    billRequest.setTokenId(tokenId);
+//                    System.out.println("Please enter exit gate number: ");
+//                    String exitGateNumber = sc.next();
+//                    billRequest.setExitGateNumber(exitGateNumber);
+                    BillResponse billResponse = billController.generateBill(billRequest);
+                    if(billResponse.getMessage() != null) {
+                        System.out.println(billResponse.getMessage());
+                    } else {
+                        System.out.println("Bill amount: " + billResponse.getAmount());
+                        System.out.println("Please pay the bill to exit the parking lot.");
+                    }
                     break;
                 case 3:
                     initController.printParkingLot();
