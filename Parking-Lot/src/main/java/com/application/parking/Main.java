@@ -51,7 +51,8 @@ public class Main {
         BillService billService = new BillService(
                 billGenerationStrategy,
                 tokenRepository,
-                billRepository
+                billRepository,
+                parkingSlotRepository
         );
 
         while(true) {
